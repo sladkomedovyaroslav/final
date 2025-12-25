@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЖД билеты онлайн</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+
+<!-- Фоновое видео -->
+<video class="background-video" autoplay muted loop playsinline>
+  <source src="assets/video.mp4" type="video/mp4">
+  Ваш браузер не поддерживает видео.
+</video>
+
+<!-- Модальное окно (сразу после body, чтобы быть поверх всего) -->
+<div class="modal" id="modal">
+  <div class="modal__content">
+    <button class="modal__close" id="closeModal">×</button>
+    <h2>Оформление заказа</h2>
+    <form id="contactForm">
+      <input name="fio" placeholder="ФИО" required>
+      <input name="phone" placeholder="Телефон" required>
+
+      <select name="city" required>
+        <option value="">Город отправления</option>
+        <option>Москва</option>
+        <option>Краснодар</option>
+        <option>Санкт-Петербург</option>
+        <option>Екатеринбург</option>
+        <option>Владивосток</option>
+        <option>Сочи</option>
+        <option>Ростов</option>
+      </select>
+
+      <select name="to" required>
+        <option value="">Город назначения</option>
+        <option>Москва</option>
+        <option>Краснодар</option>
+        <option>Санкт-Петербург</option>
+        <option>Екатеринбург</option>
+        <option>Владивосток</option>
+        <option>Сочи</option>
+        <option>Ростов</option>
+      </select>
+      <input type="date" name="date" required>
+
+      <button class="btn" type="submit">Оформить заказ</button>
+      <button type="button" class="btn" id="printTicket">Скачать билет (PDF)</button>
+      <p class="form__status" id="formStatus"></p>
+    </form>
+  </div>
+</div>
+
+<header class="header">
+  <div class="header__content">
+    <div class="logo">РЖД БИЛЕТЫ</div>
+    <nav class="nav">
+      <ul class="nav__list">
+        <li><a href="trains.html" target="_blank">Поезда</a></li>
+        <li><a href="schedule.html" target="_blank">Расписание</a></li>
+        <li><a href="contacts.html" target="_blank">Контакты</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="main">
+  <section class="section">
+    <h1>Железнодорожные билеты онлайн</h1>
+    <p>Официальный сервис поиска и оформления железнодорожных билетов</p>
+    <button class="btn" id="openModal">Найти билет</button>
+  </section>
+
+  <section class="section">
+    <h2>Контакты</h2>
+    <p>Телефон: 8 918 999 86 21</p>
+    <p>Email: sladkomedov.yaroslav10@gmail.com</p>
+  </section>
+
+  <section class="section">
+    <h2>Вопросы и ответы</h2>
+    <ul>
+      <li><strong>Как купить билет?</strong> — Через форму заказа.</li>
+      <li><strong>Можно ли вернуть билет?</strong> — Да, по правилам перевозчика.</li>
+      <li><strong>Нужно ли регистрироваться?</strong> — Нет.</li>
+    </ul>
+  </section>
+</main>
+
+<div id="ticket">
+  <h1>Железнодорожный билет</h1>
+  <p><strong>ФИО:</strong> <span id="tFio"></span></p>
+  <p><strong>Телефон:</strong> <span id="tPhone"></span></p>
+  <p><strong>Откуда:</strong> <span id="tCity"></span></p>
+  <p><strong>Куда:</strong> <span id="tTo"></span></p>
+  <p><strong>Дата:</strong> <span id="tDate"></span></p>
+  <p><strong>Номер билета:</strong> RZD-<span id="tId"></span></p>
+</div>
+
+<script src="js/menu.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/form.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+@media(max-width:768px){
+.nav{display:none}
+.burger{display:flex;flex-direction:column;gap:5px;background:none;border:none}
+.burger span{width:25px;height:3px;background:#2b2b2b}
+.main{padding:30px 20px}
+}

@@ -1,0 +1,148 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* Общие стили */
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f6f8;
+  color:#2b2b2b;
+  position: relative;
+}
+
+/* Фоновое видео */
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Контент поверх видео */
+.header, .main, .modal, #ticket {
+  position: relative;
+  z-index: 1;
+}
+
+/* Хедер */
+.header {
+  background: #fff;
+  border-bottom: 4px solid #d52b1e;
+}
+.header__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+.logo {
+  color: #d52b1e;
+  font-size: 26px;
+  font-weight: bold;
+}
+.nav__list {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+.nav__list a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #2b2b2b;
+}
+
+/* Главный контент */
+.main {
+  padding: 60px 40px;
+}
+.section {
+  background: Gainsboro; /* непрозрачный фон */
+  padding: 40px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.08);
+}
+
+/* Кнопки */
+.btn {
+  margin-top: 10px;
+  padding: 14px 36px;
+  background: #d52b1e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Модальное окно */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 9999; /* поверх всего */
+  overflow-y: auto;
+}
+.modal.open {
+  display: flex;
+}
+.modal__content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+.modal__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.modal input, .modal select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Билет */
+#ticket {
+  display: none;
+}
+
+/* Печать билета */
+@media print {
+  body * { visibility: hidden; }
+  #ticket, #ticket * { visibility: visible; }
+  #ticket {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 40px;
+  }
+  #ticket h1 { color: #d52b1e; }
+}
+
+/* Адаптив для мобильных экранов */
+@media (max-width: 768px) {
+  .header__content { flex-direction: column; gap: 15px; }
+  .nav__list { flex-direction: column; gap: 15px; }
+  .main { padding: 40px 20px; }
+  .section { padding: 20px; }
+}
+
