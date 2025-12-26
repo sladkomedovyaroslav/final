@@ -1,18 +1,20 @@
 const form = document.getElementById('contactForm');
 const status = document.getElementById('formStatus');
-const btn = form.querySelector('button');
 const phoneInput = form.phone;
 
-// Проверка: вводим только цифры в поле телефона
+// Твой URL Formspree
+const FORMSPREE_URL = 'https://formspree.io/f/xkonnjlw';
+
+// Разрешаем ввод только цифр в телефон
 phoneInput.addEventListener('input', () => {
   phoneInput.value = phoneInput.value.replace(/\D/g, '');
 });
 
 // Обработка отправки формы
-form.onsubmit = e => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  // Проверка, что телефон состоит только из цифр и не пустой
+  // Проверка телефона
   if (!/^\d+$/.test(phoneInput.value)) {
     status.textContent = 'Пожалуйста, введите только цифры в поле телефона';
     status.style.color = 'red';
@@ -20,14 +22,36 @@ form.onsubmit = e => {
     return;
   }
 
-  // Если все поля корректны
-  status.textContent = 'Заказ оформлен';
-  status.style.color = 'green';
-};
+  status.textContent = 'Отправка заказа...';
+  status.style.color = 'black';
 
-// Обработка кнопки "Скачать билет"
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      status.textContent = 'Заказ успешно отправлен!';
+      status.style.color = 'green';
+      form.reset(); // очищаем форму
+    } else {
+      status.textContent = 'Ошибка отправки. Попробуйте позже.';
+      status.style.color = 'red';
+    }
+  } catch (error) {
+    status.textContent = 'Ошибка соединения. Проверьте интернет.';
+    status.style.color = 'red';
+  }
+});
+
+// Кнопка скачать билет
 document.getElementById('printTicket').onclick = () => {
-  // Проверяем, что телефон валиден перед печатью
   if (!/^\d+$/.test(phoneInput.value)) {
     status.textContent = 'Пожалуйста, введите только цифры в поле телефона';
     status.style.color = 'red';
@@ -35,7 +59,6 @@ document.getElementById('printTicket').onclick = () => {
     return;
   }
 
-  // Заполняем билет данными из формы
   document.getElementById('tFio').textContent = form.fio.value;
   document.getElementById('tPhone').textContent = form.phone.value;
   document.getElementById('tCity').textContent = form.city.value;
