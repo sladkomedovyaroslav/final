@@ -1,11 +1,58 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ЖД билеты онлайн</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/mobile.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЖД билеты онлайн</title>
+<style>
+body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f6f8; }
+header { background:#fff; border-bottom:4px solid #d52b1e; padding:20px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+.logo { color:#d52b1e; font-size:26px; font-weight:bold; }
+nav ul { list-style:none; display:flex; gap:20px; padding:0; margin:0; flex-wrap:wrap; }
+nav ul li a { text-decoration:none; color:#2b2b2b; font-weight:bold; }
+main { padding:40px 20px; max-width:1200px; margin:auto; }
+h1, h2 { color:#d52b1e; }
+h1 { font-size:32px; margin-bottom:20px; }
+h2 { font-size:24px; margin-top:30px; margin-bottom:15px; border-bottom:2px solid #d52b1e; padding-bottom:5px; }
+.section { background:#fff; padding:20px 30px; border-radius:8px; margin-bottom:30px; box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+ul { padding-left:20px; }
+li { margin-bottom:8px; }
+/* Модальное окно */
+.modal { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; }
+.modal__content { background:#fff; padding:30px; border-radius:20px; max-width:400px; width:90%; text-align:center; }
+.modal__content input, .modal__content select, .modal__content button { width:100%; margin:10px 0; padding:10px; font-size:16px; }
+.btn { background:#d52b1e; color:#fff; border:none; padding:10px 20px; border-radius:4px; cursor:pointer; font-weight:bold; }
+.btn:hover { opacity:0.9; }
+/* Фоновое видео */
+.background-video { width:100%; height:auto; display:block; }
+/* Галерея-карусель */
+.carousel {
+  position: relative;
+  width: 400px;
+  margin: 20px auto;
+  text-align: center;
+}
+.carousel img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.carousel button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.carousel .prev { left: 10px; }
+.carousel .next { right: 10px; }
+</style>
 </head>
 <body>
 
@@ -15,16 +62,57 @@
   Ваш браузер не поддерживает видео.
 </video>
 
+<header>
+  <div class="logo">РЖД БИЛЕТЫ</div>
+  <nav>
+    <ul>
+      <li><a href="trains.html">Деятельность</a></li>
+      <li><a href="schedule.html">Расписание</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section class="section">
+    <h1>Железнодорожные билеты онлайн</h1>
+    <p>Официальный сервис поиска и оформления железнодорожных билетов</p>
+    <button class="btn" id="openModal">Найти билет</button>
+  </section>
+
+  <section class="section" id="contacts">
+    <h2>Контакты</h2>
+    <p>Телефон: 8 918 999 86 21</p>
+    <p>Email: sladkomedov.yaroslav10@gmail.com</p>
+
+    <h2>Галерея</h2>
+    <div class="carousel">
+      <button class="prev">&#10094;</button>
+      <img id="carouselImage" src="images/photo1.png" alt="Фото">
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Вопросы и ответы</h2>
+    <ul>
+      <li><strong>Как купить билет?</strong> — Через форму заказа.</li>
+      <li><strong>Можно ли вернуть билет?</strong> — Да, по правилам перевозчика.</li>
+      <li><strong>Нужно ли регистрироваться?</strong> — Нет.</li>
+    </ul>
+  </section>
+
+</main>
+
 <!-- Модальное окно -->
 <div class="modal" id="modal">
   <div class="modal__content">
     <button class="modal__close" id="closeModal">×</button>
     <h2>Оформление заказа</h2>
-
     <form id="contactForm">
       <input name="fio" placeholder="ФИО" required>
       <input name="phone" placeholder="Телефон" required>
-
       <select name="city" required>
         <option value="">Город отправления</option>
         <option>Москва</option>
@@ -35,7 +123,6 @@
         <option>Сочи</option>
         <option>Ростов</option>
       </select>
-
       <select name="to" required>
         <option value="">Город назначения</option>
         <option>Москва</option>
@@ -46,75 +133,47 @@
         <option>Сочи</option>
         <option>Ростов</option>
       </select>
-
       <input type="date" name="date" required>
-
       <button class="btn" type="submit">Оформить заказ</button>
-      <button class="btn" type="button" id="printTicket">Скачать билет (PDF)</button>
-
       <p class="form__status" id="formStatus"></p>
     </form>
   </div>
 </div>
 
-<header class="header">
-  <div class="header__content">
-    <div class="logo">РЖД БИЛЕТЫ</div>
+<script>
+  // Модальное окно
+  const modal = document.getElementById('modal');
+  document.getElementById('openModal').onclick = () => modal.style.display='flex';
+  document.getElementById('closeModal').onclick = () => modal.style.display='none';
 
-    <nav class="nav">
-      <ul class="nav__list">
-        <li><a href="trains.html" target="_blank">Деятельность</a></li>
-        <li><a href="schedule.html" target="_blank">Расписание</a></li>
-        <li><a href="contacts.html" target="_blank">Контакты</a></li>
-      </ul>
-    </nav>
+  // Форма
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formStatus').textContent = 'Успешно отправлено!';
+    form.reset();
+    setTimeout(()=>{ document.getElementById('formStatus').textContent=''; modal.style.display='none'; }, 2000);
+  });
 
-    <button class="burger" id="burger">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
+  // Галерея-карусель
+  const images = [
+    'images/photo1.png',
+    'images/photo2.png',
+    'images/photo3.png',
+    'images/photo4.png',
+    'images/photo5.png'
+  ];
+  let current = 0;
+  const carouselImage = document.getElementById('carouselImage');
+  document.querySelector('.prev').onclick = () => {
+    current = (current - 1 + images.length) % images.length;
+    carouselImage.src = images[current];
+  };
+  document.querySelector('.next').onclick = () => {
+    current = (current + 1) % images.length;
+    carouselImage.src = images[current];
+  };
+</script>
 
-<main class="main">
-  <div class="gray-block">
-
-    <section class="section">
-      <h1>Железнодорожные билеты онлайн</h1>
-      <p>Официальный сервис поиска и оформления железнодорожных билетов</p>
-      <button class="btn" id="openModal">Найти билет</button>
-    </section>
-
-    <section class="section">
-      <h2>Контакты</h2>
-      <p>Телефон: 8 918 999 86 21</p>
-      <p>Email: sladkomedov.yaroslav10@gmail.com</p>
-    </section>
-
-    <section class="section">
-      <h2>Вопросы и ответы</h2>
-      <ul>
-        <li><strong>Как купить билет?</strong> — Через форму заказа.</li>
-        <li><strong>Можно ли вернуть билет?</strong> — Да, по правилам перевозчика.</li>
-        <li><strong>Нужно ли регистрироваться?</strong> — Нет.</li>
-      </ul>
-    </section>
-
-  </div>
-</main>
-
-<!-- Билет для печати -->
-<div id="ticket">
-  <h1>Железнодорожный билет</h1>
-  <p><strong>ФИО:</strong> <span id="tFio"></span></p>
-  <p><strong>Телефон:</strong> <span id="tPhone"></span></p>
-  <p><strong>Откуда:</strong> <span id="tCity"></span></p>
-  <p><strong>Куда:</strong> <span id="tTo"></span></p>
-  <p><strong>Дата:</strong> <span id="tDate"></span></p>
-  <p><strong>Номер билета:</strong> RZD-<span id="tId"></span></p>
-</div>
-
-<script src="js/menu.js"></script>
-<script src="js/modal.js"></script>
-<script src="js/form.js"></script>
 </body>
 </html>
