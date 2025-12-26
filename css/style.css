@@ -1,4 +1,8 @@
-*{margin:0;padding:0;box-sizing:border-box}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 /* Фоновое видео */
 .background-video {
@@ -11,20 +15,6 @@
   z-index: -1;
 }
 
-/* Надпись поверх видео */
-.video-text {
-  position: absolute;
-  top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
-  text-align: center;
-  font-size: 36px;
-  font-weight: bold;
-  z-index: 2;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-}
-
 /* Хедер */
 .header {
   background: #fff;
@@ -32,30 +22,47 @@
   position: relative;
   z-index: 2;
 }
+
 .header__content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px;
 }
-.logo { color:#d52b1e; font-size:26px; font-weight:bold; }
-.nav__list { display:flex; gap:30px; list-style:none; }
-.nav__list a { text-decoration:none; font-weight:bold; color:#2b2b2b; }
 
-/* Основной контент */
-.main { position: relative; z-index:1; }
-
-/* Единый серый блок */
-.gray-block {
-  background: Gainsboro;
-  padding: 60px 40px 40px 40px; /* сверху больше, снизу стандартно */
-  border-radius: 0;
+.logo {
+  color: #d52b1e;
+  font-size: 26px;
+  font-weight: bold;
 }
 
-/* Секции внутри блока */
+.nav__list {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+.nav__list a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #2b2b2b;
+}
+
+/* Основной контент */
+.main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Серый блок */
+.gray-block {
+  background: gainsboro;
+  padding: 60px 40px 40px;
+}
+
+/* Секции */
 .section {
   padding: 20px 0;
-  margin: 0; /* убираем отступы между секциями */
 }
 
 /* Кнопки */
@@ -73,53 +80,88 @@
 /* Модальное окно */
 .modal {
   position: fixed;
-  top: 0; left:0;
-  width:100%; height:100%;
-  background: rgba(0,0,0,0.5);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
   z-index: 9999;
-  overflow-y:auto;
 }
-.modal.open { display:flex; }
+
+.modal.open {
+  display: flex;
+}
+
 .modal__content {
-  background:#fff;
-  padding:30px;
-  border-radius:8px;
-  max-width:420px;
-  width:100%;
-  position:relative;
-  box-shadow:0 6px 20px rgba(0,0,0,0.3);
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
 }
+
 .modal__close {
-  position:absolute;
-  top:15px;
-  right:15px;
-  font-size:22px;
-  background:none;
-  border:none;
-  cursor:pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
-.modal input, .modal select { width:100%; padding:12px; margin-bottom:15px; border:1px solid #ccc; border-radius:4px; }
+
+.modal input,
+.modal select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
 /* Билет */
-#ticket { display:none; }
+#ticket {
+  display: none;
+}
 
 /* Печать билета */
 @media print {
-  body *{visibility:hidden}
-  #ticket,#ticket *{visibility:visible}
-  #ticket{position:absolute;left:0;top:0;padding:40px}
-  #ticket h1{color:#d52b1e}
+  body * {
+    visibility: hidden;
+  }
+
+  #ticket,
+  #ticket * {
+    visibility: visible;
+  }
+
+  #ticket {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 40px;
+  }
+
+  #ticket h1 {
+    color: #d52b1e;
+  }
 }
 
 /* Адаптив */
-@media(max-width:768px){
-  .header__content{flex-direction:column;gap:15px;}
-  .nav__list{flex-direction:column;gap:15px;}
-  .main{padding:40px 20px;}
-  .gray-block{padding:80px 20px 20px 20px;}
-  .video-text{font-size:28px;}
+@media (max-width: 768px) {
+  .header__content {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .gray-block {
+    padding: 80px 20px 20px;
+  }
 }
